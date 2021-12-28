@@ -3,7 +3,6 @@ package io.micronaut.ck.live.data;
 import io.micronaut.ck.live.Subscriber;
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
 import jakarta.inject.Inject;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
@@ -25,7 +24,7 @@ class SubscriberSaveServiceImplTest {
         Subscriber subscriber = new Subscriber("tcook@apple.com", null);
         Optional<String> id = subscriberSaveService.save(subscriber);
         long count = subscriberDataRepository.count();
-        assertEquals(count,before+1);
+        assertEquals(count, before + 1);
         assertTrue(id.isPresent());
         subscriberDataRepository.deleteById(id.get());
 
