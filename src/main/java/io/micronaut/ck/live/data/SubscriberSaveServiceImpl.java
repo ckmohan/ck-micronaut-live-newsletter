@@ -1,8 +1,10 @@
 package io.micronaut.ck.live.data;
 
 import io.micronaut.ck.live.Subscriber;
+import io.micronaut.ck.live.events.SubscriptionPendingEvent;
 import io.micronaut.ck.live.services.IdGenerator;
 import io.micronaut.ck.live.services.SubscriberSaveService;
+import io.micronaut.context.event.ApplicationEventPublisher;
 import io.micronaut.core.annotation.NonNull;
 import jakarta.inject.Singleton;
 
@@ -14,10 +16,11 @@ import java.util.Optional;
 public class SubscriberSaveServiceImpl implements SubscriberSaveService {
     private final IdGenerator idGenerator;
     private final SubscriberDataRepository subscriberDataRepository;
-
-    public SubscriberSaveServiceImpl(IdGenerator idGenerator, SubscriberDataRepository subscriberDataRepository) {
+    private final ApplicationEventPublisher<SubscriptionPendingEvent> eventPublisher;
+    public SubscriberSaveServiceImpl(IdGenerator idGenerator, SubscriberDataRepository subscriberDataRepository, ApplicationEventPublisher<SubscriptionPendingEvent> eventPublisher) {
         this.idGenerator = idGenerator;
         this.subscriberDataRepository = subscriberDataRepository;
+        this.eventPublisher = eventPublisher;
     }
 
     @Override
@@ -26,6 +29,7 @@ public class SubscriberSaveServiceImpl implements SubscriberSaveService {
         return idGenerator.generate().map(id -> {
             SubscriberEntity entity = new SubscriberEntity(id, subscriber.email(), subscriber.name());
             subscriberDataRepository.save(entity);
+            eventPublisher.publishEvent(new SubscriptionPendingEvent(subscriber.email()));
             return id;
         });
     }
