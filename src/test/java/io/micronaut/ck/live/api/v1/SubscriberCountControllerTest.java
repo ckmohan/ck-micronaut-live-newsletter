@@ -44,8 +44,23 @@ class SubscriberCountControllerTest {
     @Test
     void shouldReturnCountAsOne() {
         BlockingHttpClient client = httpClient.toBlocking();
-        SubscriberEntity entity = new SubscriberEntity(idGenerator.generate().get(), "tcook@apple.com", "Tim Cook", true);
+        SubscriberEntity entity = new SubscriberEntity(idGenerator.generate().get(),
+                "tcook@apple.com", "Tim Cook", true,false);
         subscriberDataRepository.save(entity);
+        HttpRequest<?> httpRequest = HttpRequest.GET("/api/v1/subscriber/count").accept(MediaType.TEXT_PLAIN);
+        Integer result = client.retrieve(httpRequest, Integer.class);
+        assertEquals(1, result);
+    }
+
+    @Test
+    void shouldReturnCountAsOneWithUnsubscribed() {
+        BlockingHttpClient client = httpClient.toBlocking();
+        SubscriberEntity entity = new SubscriberEntity(idGenerator.generate().get(),
+                "tcook@apple.com", "Tim Cook", true,false);
+        SubscriberEntity entity1 = new SubscriberEntity(idGenerator.generate().get(),
+                "tcook@apple.com", "Tim Cook", true,true);
+        subscriberDataRepository.save(entity);
+        subscriberDataRepository.save(entity1);
         HttpRequest<?> httpRequest = HttpRequest.GET("/api/v1/subscriber/count").accept(MediaType.TEXT_PLAIN);
         Integer result = client.retrieve(httpRequest, Integer.class);
         assertEquals(1, result);
