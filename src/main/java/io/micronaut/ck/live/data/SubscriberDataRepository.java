@@ -6,4 +6,5 @@ import io.micronaut.data.repository.CrudRepository;
 
 @JdbcRepository(dialect = Dialect.H2)
 public interface SubscriberDataRepository extends CrudRepository<SubscriberEntity, String> {
+    Integer countByConfirmed(boolean confirmed);
 }
