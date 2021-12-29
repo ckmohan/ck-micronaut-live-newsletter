@@ -136,6 +136,11 @@
             <artifactId>junit-platform-commons</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>io.micronaut.views</groupId>
+            <artifactId>micronaut-views-thymeleaf</artifactId>
+            <scope>compile</scope>
+        </dependency>
 
     </dependencies>
 

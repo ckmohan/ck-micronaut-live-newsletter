@@ -3,6 +3,6 @@ defaultPackage: io.micronaut.ck.live
 testFramework: junit
 sourceLanguage: java
 buildTool: maven
-features: [annotation-api, app-name, data, data-jdbc, h2, http-client, java, java-application, junit, logback, management, jdbc-hikari, maven, netty-server, openapi, problem-json, readme, shade, yaml]
+features: [annotation-api, app-name, data, data-jdbc, h2, http-client, java, java-application, junit, logback, management, jdbc-hikari, maven, netty-server, openapi, problem-json, readme, shade, views-thymeleaf, yaml]
 
 
