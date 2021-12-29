@@ -24,9 +24,9 @@ public class EmailSubscriberPendingEventListener implements ApplicationEventList
     }
 
     @Async
-    public void sendEmail(@NonNull String recipent) {
-        String textEmail = confirmationEmailComposer.composeText(recipent);
-        Email email = new Email(recipent, null, textEmail);
+    public void sendEmail(@NonNull String recipient) {
+        String textEmail = confirmationEmailComposer.composeText(recipient);
+        Email email = new Email(recipient, null, textEmail);
         emailSender.sendEmail(email);
     }
 }

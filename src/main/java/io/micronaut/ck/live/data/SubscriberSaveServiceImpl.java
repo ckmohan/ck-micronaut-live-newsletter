@@ -17,7 +17,10 @@ public class SubscriberSaveServiceImpl implements SubscriberSaveService {
     private final IdGenerator idGenerator;
     private final SubscriberDataRepository subscriberDataRepository;
     private final ApplicationEventPublisher<SubscriptionPendingEvent> eventPublisher;
-    public SubscriberSaveServiceImpl(IdGenerator idGenerator, SubscriberDataRepository subscriberDataRepository, ApplicationEventPublisher<SubscriptionPendingEvent> eventPublisher) {
+
+    public SubscriberSaveServiceImpl(IdGenerator idGenerator,
+                                     SubscriberDataRepository subscriberDataRepository,
+                                     ApplicationEventPublisher<SubscriptionPendingEvent> eventPublisher) {
         this.idGenerator = idGenerator;
         this.subscriberDataRepository = subscriberDataRepository;
         this.eventPublisher = eventPublisher;

@@ -1,4 +1,4 @@
-package io.micronaut.ck.live.controller;
+package io.micronaut.ck.live.data;
 
 import io.micronaut.core.annotation.NonNull;
 

@@ -26,6 +26,17 @@ public class JwtConfirmationCodeGenerator implements ConfirmationCodeGenerator, 
     private final TokenGenerator tokenGenerator;
     private final JwtValidator jwtValidator;
 
+    public JwtConfirmationCodeGenerator(Collection<SignatureConfiguration> singatureConfigurations,
+                                        Collection<EncryptionConfiguration> encryptionConfigurations,
+                                        ExpirationJwtClaimsValidator expirationJwtClaimsValidator,
+                                        TokenGenerator tokenGenerator) {
+        this.tokenGenerator = tokenGenerator;
+        this.jwtValidator = JwtValidator.builder()
+                .withSignatures(singatureConfigurations)
+                .withEncryptions(encryptionConfigurations)
+                .withClaimValidators(expirationJwtClaimsValidator).build();
+    }
+
     @Override
     public Optional<String> verify(String token) {
         Optional<JWT> optionalJWT = jwtValidator.validate(token, null);
@@ -46,16 +57,6 @@ public class JwtConfirmationCodeGenerator implements ConfirmationCodeGenerator, 
         return Optional.empty();
     }
 
-    public JwtConfirmationCodeGenerator(Collection<SignatureConfiguration> singatureConfigurations,
-                                        Collection<EncryptionConfiguration> encryptionConfigurations,
-                                        ExpirationJwtClaimsValidator expirationJwtClaimsValidator,
-                                        TokenGenerator tokenGenerator) {
-        this.tokenGenerator = tokenGenerator;
-        this.jwtValidator = JwtValidator.builder()
-                .withSignatures(singatureConfigurations)
-                .withEncryptions(encryptionConfigurations)
-                .withClaimValidators(expirationJwtClaimsValidator).build();
-    }
 
     @Override
     @NonNull

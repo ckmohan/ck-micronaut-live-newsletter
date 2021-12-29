@@ -1,6 +1,5 @@
 package io.micronaut.ck.live.data;
 
-import io.micronaut.ck.live.controller.ConfirmationService;
 import io.micronaut.ck.live.model.SubscriptionStatus;
 import io.micronaut.core.annotation.NonNull;
 import jakarta.inject.Singleton;

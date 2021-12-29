@@ -1,7 +1,7 @@
 package io.micronaut.ck.live.controller;
 
+import io.micronaut.ck.live.data.ConfirmationService;
 import io.micronaut.ck.live.services.ConfirmationCodeVerifier;
-import io.micronaut.ck.live.services.UnSubscribeService;
 import io.micronaut.core.annotation.Nullable;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.MediaType;
@@ -37,7 +37,7 @@ class SubscriptionConfirmationController {
             return notFound();
         }
         Optional<String> email = confirmationCodeVerifier.verify(token);
-        if (!email.isPresent()) {
+        if (email.isEmpty()) {
             return notFound();
         }
         confirmationService.confirm(email.get());

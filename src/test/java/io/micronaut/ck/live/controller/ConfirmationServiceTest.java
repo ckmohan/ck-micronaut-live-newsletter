@@ -1,5 +1,6 @@
 package io.micronaut.ck.live.controller;
 
+import io.micronaut.ck.live.data.ConfirmationService;
 import io.micronaut.context.BeanContext;
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
 import jakarta.inject.Inject;
