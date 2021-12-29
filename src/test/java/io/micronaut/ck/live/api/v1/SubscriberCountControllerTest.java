@@ -2,6 +2,7 @@ package io.micronaut.ck.live.api.v1;
 
 import io.micronaut.ck.live.data.SubscriberDataRepository;
 import io.micronaut.ck.live.data.SubscriberEntity;
+import io.micronaut.ck.live.model.SubscriptionStatus;
 import io.micronaut.ck.live.services.IdGenerator;
 import io.micronaut.http.HttpRequest;
 import io.micronaut.http.MediaType;
@@ -45,7 +46,7 @@ class SubscriberCountControllerTest {
     void shouldReturnCountAsOne() {
         BlockingHttpClient client = httpClient.toBlocking();
         SubscriberEntity entity = new SubscriberEntity(idGenerator.generate().get(),
-                "tcook@apple.com", "Tim Cook", true,false);
+                "tcook@apple.com", "Tim Cook", SubscriptionStatus.ACTIVE);
         subscriberDataRepository.save(entity);
         HttpRequest<?> httpRequest = HttpRequest.GET("/api/v1/subscriber/count").accept(MediaType.TEXT_PLAIN);
         Integer result = client.retrieve(httpRequest, Integer.class);
@@ -56,9 +57,9 @@ class SubscriberCountControllerTest {
     void shouldReturnCountAsOneWithUnsubscribed() {
         BlockingHttpClient client = httpClient.toBlocking();
         SubscriberEntity entity = new SubscriberEntity(idGenerator.generate().get(),
-                "tcook@apple.com", "Tim Cook", true,false);
+                "tcook@apple.com", "Tim Cook", SubscriptionStatus.ACTIVE);
         SubscriberEntity entity1 = new SubscriberEntity(idGenerator.generate().get(),
-                "tcook@apple.com", "Tim Cook", true,true);
+                "tcook@apple.com", "Tim Cook", SubscriptionStatus.CANCELLED);
         subscriberDataRepository.save(entity);
         subscriberDataRepository.save(entity1);
         HttpRequest<?> httpRequest = HttpRequest.GET("/api/v1/subscriber/count").accept(MediaType.TEXT_PLAIN);

@@ -1,5 +1,6 @@
 package io.micronaut.ck.live.data;
 
+import io.micronaut.ck.live.model.SubscriptionStatus;
 import io.micronaut.ck.live.services.SubscriberCountService;
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
@@ -15,6 +16,6 @@ public class SubscriberCountServiceImpl implements SubscriberCountService {
 
     @Override
     public Integer getConfirmedSubscribersCount() {
-        return subscriberDataRepository.countByConfirmedAndUnsubscribed(true,false);
+        return subscriberDataRepository.countByStatus(SubscriptionStatus.ACTIVE);
     }
 }
