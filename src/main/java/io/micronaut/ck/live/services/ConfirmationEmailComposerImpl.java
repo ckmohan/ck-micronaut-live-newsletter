@@ -36,7 +36,7 @@ public class ConfirmationEmailComposerImpl implements ConfirmationEmailComposer 
                         ServerRequestContext.currentRequest().map(httpHostResolver::resolve)
                                 .orElse(""))
                 .path("confirm")
-                .queryParam("token",confirmationCodeGenerator.generate(email).orElse(null))
+                .queryParam("token", confirmationCodeGenerator.generate(email).orElse(null))
                 .build().toString();
     }
 }

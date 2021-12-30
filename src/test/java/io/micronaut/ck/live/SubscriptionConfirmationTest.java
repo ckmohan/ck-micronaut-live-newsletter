@@ -15,7 +15,6 @@ import io.micronaut.http.client.annotation.Client;
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
-import org.graalvm.collections.EconomicMap;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
@@ -26,7 +25,7 @@ import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@Property(name ="test.name", value = "SubscriptionConfirmationTest")
+@Property(name = "test.name", value = "SubscriptionConfirmationTest")
 @MicronautTest
 public class SubscriptionConfirmationTest {
 
@@ -44,10 +43,10 @@ public class SubscriptionConfirmationTest {
     void happyPathforSubscritionAndConfirmation() throws InterruptedException {
         BlockingHttpClient client = httpClient.toBlocking();
         HttpResponse<Object> httpResponse = client.exchange(HttpRequest.POST("/api/v1/subscriber", Collections.singletonMap("email", "tcook@apple.com")));
-        assertEquals(1,subscriberDataRepository.count());
+        assertEquals(1, subscriberDataRepository.count());
         EmailSenderCollector emailSenderCollector = beanContext.getBean(EmailSenderCollector.class);
         TimeUnit.SECONDS.sleep(1);
-        assertEquals(1,emailSenderCollector.emails.size());
+        assertEquals(1, emailSenderCollector.emails.size());
 
     }
 
@@ -61,6 +60,7 @@ public class SubscriptionConfirmationTest {
     @Singleton
     static class EmailSenderCollector implements EmailSender {
         private final List<Email> emails = new ArrayList<>();
+
         @Override
         public void sendEmail(Email email) {
             emails.add(email);

@@ -20,7 +20,7 @@ public class KsuidGenerator implements IdGenerator {
             return Optional.of(new Ksuid().generate());
 
         } catch (IOException e) {
-            if(LOG.isErrorEnabled()){
+            if (LOG.isErrorEnabled()) {
                 LOG.error("IOException generating a KS-UID");
             }
         }

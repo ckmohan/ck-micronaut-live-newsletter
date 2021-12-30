@@ -1,9 +1,9 @@
 package io.micronaut.ck.live.controller;
 
+import io.micronaut.context.annotation.Property;
+import io.micronaut.core.util.StringUtils;
 import io.micronaut.http.HttpRequest;
 import io.micronaut.http.HttpResponse;
-import io.micronaut.http.HttpStatus;
-import io.micronaut.http.MediaType;
 import io.micronaut.http.client.BlockingHttpClient;
 import io.micronaut.http.client.HttpClient;
 import io.micronaut.http.client.annotation.Client;
@@ -12,22 +12,19 @@ import jakarta.inject.Inject;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@Property(name = "micronaut.http.client.follow-redirects", value = StringUtils.FALSE)
 @MicronautTest
-class NotFoundControllerTest {
+class HomeControllerTest {
 
     @Inject
     @Client("/")
     HttpClient httpClient;
 
     @Test
-    void shouldContainHtlm() {
+    void redirectGetRequestToSubscriptionCreatePage() {
         BlockingHttpClient client = httpClient.toBlocking();
-        HttpRequest<Object> request = HttpRequest.GET("/404").accept(MediaType.TEXT_HTML);
-        HttpResponse<String> response = client.exchange(request, String.class);
-        assertEquals(HttpStatus.OK, response.getStatus());
-        assertTrue(response.getBody().isPresent());
-        assertTrue(response.getBody().get().contains("<h1>Not Found</h1>"));
+        HttpResponse<Object> httpResponse = client.exchange(HttpRequest.GET("/"));
+        assertEquals(303, httpResponse.getStatus().getCode());
     }
 }

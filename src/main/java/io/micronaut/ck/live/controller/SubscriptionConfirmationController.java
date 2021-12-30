@@ -1,6 +1,7 @@
 package io.micronaut.ck.live.controller;
 
 import io.micronaut.ck.live.data.ConfirmationService;
+import io.micronaut.ck.live.model.Alert;
 import io.micronaut.ck.live.services.ConfirmationCodeVerifier;
 import io.micronaut.core.annotation.Nullable;
 import io.micronaut.http.HttpResponse;
@@ -14,12 +15,17 @@ import org.thymeleaf.util.StringUtils;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 @Controller("/confirm")
 class SubscriptionConfirmationController {
 
+    public static final String CONFIRMATION_FAILED = "Confirmation Failed";
+    public static final String CONFIRMATION_SUCCESS = "Confirmation Success";
+    public static final String MODEL_KEY_TITLE = "title";
+    public static final String MODEL_KEY_ALERT = "alert";
     private final ConfirmationCodeVerifier confirmationCodeVerifier;
     private final ConfirmationService confirmationService;
 
@@ -30,18 +36,30 @@ class SubscriptionConfirmationController {
     }
 
     @Produces(MediaType.TEXT_HTML)
-    @View("confirmed")
+    @View("alert")
     @Get
-    HttpResponse<?> confirm(@QueryValue @Nullable String token) {
+    Map<String, Object> confirm(@QueryValue @Nullable String token) {
+
         if (StringUtils.isEmpty(token)) {
-            return notFound();
+            return createModel(CONFIRMATION_FAILED, Alert.builder()
+                    .danger("token is required"));
         }
         Optional<String> email = confirmationCodeVerifier.verify(token);
         if (email.isEmpty()) {
-            return notFound();
+            return createModel(CONFIRMATION_FAILED, Alert.builder()
+                    .danger("could not verify the token"));
+
         }
         confirmationService.confirm(email.get());
-        return HttpResponse.ok(Collections.emptyMap());
+        return createModel(CONFIRMATION_SUCCESS, Alert.builder()
+                .success("thanks, we have now confirmed you subscription"));
+    }
+
+    private Map<String, Object> createModel(String title, Alert.Builder builder) {
+        Map<String, Object> model = new HashMap<>();
+        model.put(MODEL_KEY_TITLE, title);
+        model.put(MODEL_KEY_ALERT, builder.build());
+        return model;
     }
 
     private HttpResponse<?> notFound() {

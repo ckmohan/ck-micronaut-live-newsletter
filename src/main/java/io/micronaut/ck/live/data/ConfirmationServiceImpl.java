@@ -17,6 +17,6 @@ public class ConfirmationServiceImpl implements ConfirmationService {
 
     @Override
     public void confirm(@NonNull @NotNull @Email String email) {
-        subscriberDataRepository.updateStatusByEmail(SubscriptionStatus.ACTIVE,email);
+        subscriberDataRepository.updateStatusByEmail(SubscriptionStatus.ACTIVE, email);
     }
 }

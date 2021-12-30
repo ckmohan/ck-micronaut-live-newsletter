@@ -9,5 +9,5 @@ import java.util.Optional;
 
 public interface SubscriberSaveService {
     @NonNull
-     Optional<String> save(@NotNull @NonNull @Valid Subscriber subscriber);
+    Optional<String> save(@NotNull @NonNull @Valid Subscriber subscriber);
 }

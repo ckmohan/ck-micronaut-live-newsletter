@@ -15,19 +15,21 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @MicronautTest
-class NotFoundControllerTest {
+class SubscriptionCreateControllerTest {
 
     @Inject
     @Client("/")
     HttpClient httpClient;
 
     @Test
-    void shouldContainHtlm() {
+    void getSubscribeCreateRendersHtmlPage() {
         BlockingHttpClient client = httpClient.toBlocking();
-        HttpRequest<Object> request = HttpRequest.GET("/404").accept(MediaType.TEXT_HTML);
-        HttpResponse<String> response = client.exchange(request, String.class);
-        assertEquals(HttpStatus.OK, response.getStatus());
-        assertTrue(response.getBody().isPresent());
-        assertTrue(response.getBody().get().contains("<h1>Not Found</h1>"));
+        HttpRequest<?> accept = HttpRequest.GET("/subscription/create").accept(MediaType.TEXT_HTML);
+        HttpResponse<Object> httpResponse = client.exchange(accept);
+
+        assertEquals(HttpStatus.OK, httpResponse.getStatus());
+        assertTrue(httpResponse.getContentType().isPresent());
+        assertEquals(MediaType.TEXT_HTML_TYPE, httpResponse.getContentType().get());
+
     }
 }

@@ -16,5 +16,5 @@ public interface SubscriberDataRepository extends CrudRepository<SubscriberEntit
 
     @Query("UPDATE subscriber SET status = :status WHERE  email = :email")
     void updateStatusByEmail(@NonNull @NotNull SubscriptionStatus status,
-                             @NonNull @NotNull String  email);
+                             @NonNull @NotNull String email);
 }

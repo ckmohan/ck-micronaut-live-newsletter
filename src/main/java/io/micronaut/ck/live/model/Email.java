@@ -5,6 +5,7 @@ import io.micronaut.core.annotation.NonNull;
 import io.micronaut.core.annotation.Nullable;
 
 import javax.validation.constraints.NotBlank;
+
 @Introspected
 public record Email(
         @NonNull @NotBlank @javax.validation.constraints.Email
