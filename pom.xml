@@ -141,7 +141,12 @@
             <artifactId>micronaut-views-thymeleaf</artifactId>
             <scope>compile</scope>
         </dependency>
-
+        <dependency>
+            <groupId>com.sendgrid</groupId>
+            <artifactId>sendgrid-java</artifactId>
+            <version>4.8.1</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
     <build>
