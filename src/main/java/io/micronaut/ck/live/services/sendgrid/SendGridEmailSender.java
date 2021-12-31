@@ -23,17 +23,20 @@ import java.util.stream.Collectors;
 
 @Requires(beans = SendGridConfiguration.class)
 @Singleton
-public class SendgridEmailSender implements EmailSender {
-    private static final Logger LOG = LoggerFactory.getLogger(SendgridEmailSender.class);
+public class SendGridEmailSender implements EmailSender {
+    private static final Logger LOG = LoggerFactory.getLogger(SendGridEmailSender.class);
     private final SendGrid sendGrid;
 
-    public SendgridEmailSender(SendGridConfiguration sendGridConfiguration) {
+    public SendGridEmailSender(SendGridConfiguration sendGridConfiguration) {
         sendGrid = new SendGrid(sendGridConfiguration.apiKey());
     }
 
     @Override
     public void sendEmail(@NonNull @NotBlank @Valid Email email) {
         try {
+            if(LOG.isTraceEnabled()) {
+                LOG.trace("Sending email to {}", email.to());
+            }
             send(createRequest(createEmail(email)));
         } catch (IOException ex) {
             if (LOG.isErrorEnabled()) {
