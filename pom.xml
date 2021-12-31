@@ -31,6 +31,8 @@
     </repositories>
 
     <dependencies>
+
+        <!-- MICRONAUT DEPENDENCIES -->
         <dependency>
             <groupId>io.micronaut</groupId>
             <artifactId>micronaut-inject</artifactId>
@@ -40,26 +42,6 @@
             <groupId>io.micronaut</groupId>
             <artifactId>micronaut-validation</artifactId>
             <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-api</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-engine</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>io.micronaut.test</groupId>
-            <artifactId>micronaut-test-junit5</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>io.micronaut.test</groupId>
-            <artifactId>micronaut-test-spock</artifactId>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>io.micronaut</groupId>
@@ -87,12 +69,6 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>jakarta.annotation</groupId>
-            <artifactId>jakarta.annotation-api</artifactId>
-            <scope>compile</scope>
-        </dependency>
-
-        <dependency>
             <groupId>io.micronaut.data</groupId>
             <artifactId>micronaut-data-jdbc</artifactId>
             <scope>compile</scope>
@@ -100,6 +76,24 @@
         <dependency>
             <groupId>io.micronaut.sql</groupId>
             <artifactId>micronaut-jdbc-hikari</artifactId>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.micronaut.security</groupId>
+            <artifactId>micronaut-security-jwt</artifactId>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.micronaut.views</groupId>
+            <artifactId>micronaut-views-thymeleaf</artifactId>
+            <scope>compile</scope>
+        </dependency>
+
+        <!-- External DEPENDENCIES -->
+
+        <dependency>
+            <groupId>jakarta.annotation</groupId>
+            <artifactId>jakarta.annotation-api</artifactId>
             <scope>compile</scope>
         </dependency>
         <dependency>
@@ -118,14 +112,20 @@
             <scope>runtime</scope>
         </dependency>
         <dependency>
-            <groupId>io.micronaut.security</groupId>
-            <artifactId>micronaut-security-jwt</artifactId>
-        </dependency>
-        <dependency>
             <groupId>com.amirkhawaja</groupId>
             <artifactId>ksuid</artifactId>
             <version>1.0.0</version>
         </dependency>
+        <dependency>
+            <groupId>com.sendgrid</groupId>
+            <artifactId>sendgrid-java</artifactId>
+            <version>4.8.1</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <!-- Test Framework Dependencies -->
+
+        <!-- JUNIT FRAMEWORK -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-params</artifactId>
@@ -136,16 +136,46 @@
             <artifactId>junit-platform-commons</artifactId>
             <scope>test</scope>
         </dependency>
+
         <dependency>
-            <groupId>io.micronaut.views</groupId>
-            <artifactId>micronaut-views-thymeleaf</artifactId>
-            <scope>compile</scope>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>com.sendgrid</groupId>
-            <artifactId>sendgrid-java</artifactId>
-            <version>4.8.1</version>
-            <scope>compile</scope>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.micronaut.test</groupId>
+            <artifactId>micronaut-test-junit5</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+
+        <!-- SPOCK FRAMEWORK -->
+        <dependency>
+            <groupId>io.micronaut.test</groupId>
+            <artifactId>micronaut-test-spock</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.spockframework</groupId>
+            <artifactId>spock-core</artifactId>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.codehaus.groovy</groupId>
+                    <artifactId>groovy-all</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>io.micronaut</groupId>
+            <artifactId>micronaut-inject-groovy</artifactId>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
@@ -155,9 +185,16 @@
                 <groupId>io.micronaut.build</groupId>
                 <artifactId>micronaut-maven-plugin</artifactId>
             </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <includes>
+                        <include>**/*Spec.*</include>
+                        <include>**/*Test.*</include>
+                    </includes>
+                </configuration>
                 <dependencies>
                     <dependency>
                         <groupId>org.junit.platform</groupId>
@@ -200,6 +237,25 @@
                         <arg>-Amicronaut.processing.module=newsletter</arg>
                     </compilerArgs>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.gmavenplus</groupId>
+                <artifactId>gmavenplus-plugin</artifactId>
+                <version>1.13.0</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>addSources</goal>
+                            <goal>generateStubs</goal>
+                            <goal>compile</goal>
+                            <goal>removeStubs</goal>
+                            <goal>addTestSources</goal>
+                            <goal>generateTestStubs</goal>
+                            <goal>compileTests</goal>
+                            <goal>removeTestStubs</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
