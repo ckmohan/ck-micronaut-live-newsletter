@@ -10,6 +10,8 @@ import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Get;
 import io.micronaut.http.annotation.Produces;
 import io.micronaut.http.annotation.QueryValue;
+import io.micronaut.scheduling.TaskExecutors;
+import io.micronaut.scheduling.annotation.ExecuteOn;
 import io.micronaut.views.View;
 import org.thymeleaf.util.StringUtils;
 
@@ -36,6 +38,7 @@ class SubscriptionConfirmationController {
     }
 
     @Produces(MediaType.TEXT_HTML)
+    @ExecuteOn(TaskExecutors.IO)
     @View("alert")
     @Get
     Map<String, Object> confirm(@QueryValue @Nullable String token) {
