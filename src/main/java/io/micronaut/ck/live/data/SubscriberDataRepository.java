@@ -11,7 +11,7 @@ import io.micronaut.data.repository.CrudRepository;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
-@JdbcRepository(dialect = Dialect.H2)
+@JdbcRepository(dialect = Dialect.POSTGRES)
 public interface SubscriberDataRepository extends CrudRepository<SubscriberEntity, String> {
 
     Integer countByStatus(SubscriptionStatus subscriptionStatus);

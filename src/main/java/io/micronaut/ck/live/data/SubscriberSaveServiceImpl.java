@@ -31,6 +31,7 @@ public class SubscriberSaveServiceImpl implements SubscriberSaveService {
     public Optional<String> save(@NotNull @NonNull @Valid Subscriber subscriber) {
         return idGenerator.generate().map(id -> {
             SubscriberEntity entity = new SubscriberEntity(id, subscriber.email(), subscriber.name());
+            System.out.println(entity);
             subscriberDataRepository.save(entity);
             eventPublisher.publishEvent(new SubscriptionPendingEvent(subscriber.email()));
             return id;
