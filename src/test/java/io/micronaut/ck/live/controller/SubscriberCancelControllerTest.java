@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @MicronautTest
-class UnSubscriberControllerTest {
+class SubscriberCancelControllerTest {
 
     @Inject
     @Client("/")
@@ -64,7 +64,7 @@ class UnSubscriberControllerTest {
     }
 
     HttpRequest<?> createRequest(@Nullable String token) {
-        UriBuilder builder = UriBuilder.of("/unsubscribe");
+        UriBuilder builder = UriBuilder.of("/subscriber/cancel");
         if (token != null) {
             builder.queryParam("token", token);
         }
