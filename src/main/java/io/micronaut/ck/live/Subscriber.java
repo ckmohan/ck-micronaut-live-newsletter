@@ -12,4 +12,8 @@ public record Subscriber(
         @NotBlank
         @Email
         String email, String name) {
+    public Subscriber(@NotNull @NotBlank
+                      @Email String email) {
+        this(email, null);
+    }
 }

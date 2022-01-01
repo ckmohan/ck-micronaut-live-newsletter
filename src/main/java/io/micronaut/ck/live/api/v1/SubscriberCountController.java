@@ -1,6 +1,6 @@
 package io.micronaut.ck.live.api.v1;
 
-import io.micronaut.ck.live.services.SubscriberCountService;
+import io.micronaut.ck.live.data.SubscriberService;
 import io.micronaut.http.MediaType;
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Get;
@@ -16,16 +16,16 @@ import static io.micronaut.ck.live.api.v1.Api.V1_PATH;
 class SubscriberCountController {
 
     @Inject
-    private final SubscriberCountService subscriberCountService;
+    private final SubscriberService subscriberService;
 
-    SubscriberCountController(SubscriberCountService subscriberCountService) {
-        this.subscriberCountService = subscriberCountService;
+    SubscriberCountController(SubscriberService subscriberService) {
+        this.subscriberService = subscriberService;
     }
 
     @ExecuteOn(TaskExecutors.IO)
     @Get(SUBSCRIBER_PATH + "/count")
     @Produces(MediaType.TEXT_PLAIN)
     Integer subscriberCount() {
-        return subscriberCountService.getConfirmedSubscribersCount();
+        return subscriberService.getConfirmedSubscribersCount();
     }
 }
