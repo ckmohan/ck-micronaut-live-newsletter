@@ -9,10 +9,10 @@
 </head>
 <body>
 <div class="container">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light" th:if="${authentication}">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-            <button aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler"
-                    data-bs-target="#navbarNav" data-bs-toggle="collapse" type="button">
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
@@ -21,13 +21,7 @@
                         <a class="nav-link" href="/subscriber/create">Create</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/subscriber/list">List</a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" href="/subscriber/import">Import</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/oauth/logout">Logout</a>
                     </li>
                 </ul>
             </div>
