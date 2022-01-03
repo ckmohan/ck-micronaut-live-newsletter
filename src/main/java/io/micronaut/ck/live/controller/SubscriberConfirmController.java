@@ -2,6 +2,7 @@ package io.micronaut.ck.live.controller;
 
 import io.micronaut.ck.live.data.ConfirmationService;
 import io.micronaut.ck.live.model.Alert;
+import io.micronaut.ck.live.model.AlertPage;
 import io.micronaut.ck.live.services.ConfirmationCodeVerifier;
 import io.micronaut.core.annotation.Nullable;
 import io.micronaut.http.HttpResponse;
@@ -12,6 +13,7 @@ import io.micronaut.http.annotation.Produces;
 import io.micronaut.http.annotation.QueryValue;
 import io.micronaut.scheduling.TaskExecutors;
 import io.micronaut.scheduling.annotation.ExecuteOn;
+import io.micronaut.views.ModelAndView;
 import io.micronaut.views.View;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -64,29 +66,23 @@ class SubscriberConfirmController {
     @ExecuteOn(TaskExecutors.IO)
     @View("alert")
     @Get("/confirm")
-    Map<String, Object> confirm(@QueryValue @Nullable String token) {
+    AlertPage confirm(@QueryValue @Nullable String token) {
 
         if (StringUtils.isEmpty(token)) {
-            return createModel(CONFIRMATION_FAILED, Alert.builder()
-                    .danger("token is required"));
+            return new AlertPage(CONFIRMATION_FAILED, Alert.builder()
+                    .danger("token is required").build());
         }
         Optional<String> email = confirmationCodeVerifier.verify(token);
         if (email.isEmpty()) {
-            return createModel(CONFIRMATION_FAILED, Alert.builder()
-                    .danger("could not verify the token"));
+            return new AlertPage(CONFIRMATION_FAILED, Alert.builder()
+                    .danger("could not verify the token").build());
 
         }
         confirmationService.confirm(email.get());
-        return createModel(CONFIRMATION_SUCCESS, Alert.builder()
-                .success("thanks, we have now confirmed you subscription"));
+        return new AlertPage(CONFIRMATION_SUCCESS, Alert.builder()
+                .success("thanks, we have now confirmed you subscription").build());
     }
 
-    private Map<String, Object> createModel(String title, Alert.Builder builder) {
-        Map<String, Object> model = new HashMap<>();
-        model.put(MODEL_KEY_TITLE, title);
-        model.put(MODEL_KEY_ALERT, builder.build());
-        return model;
-    }
 
     private HttpResponse<?> notFound() {
         try {

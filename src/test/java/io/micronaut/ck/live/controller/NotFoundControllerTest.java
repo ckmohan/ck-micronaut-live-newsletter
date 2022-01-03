@@ -22,12 +22,15 @@ class NotFoundControllerTest {
     HttpClient httpClient;
 
     @Test
-    void shouldContainHtlm() {
+    void shouldContainHtml() {
         BlockingHttpClient client = httpClient.toBlocking();
         HttpRequest<Object> request = HttpRequest.GET("/404").accept(MediaType.TEXT_HTML);
         HttpResponse<String> response = client.exchange(request, String.class);
         assertEquals(HttpStatus.OK, response.getStatus());
         assertTrue(response.getBody().isPresent());
-        assertTrue(response.getBody().get().contains("<h1>Not Found</h1>"));
+        assertTrue(response.getBody().get().contains("""
+                            <div class="alert alert-danger" role="alert">
+                                    <span>Not Found</span>
+                                </div>"""));
     }
 }
