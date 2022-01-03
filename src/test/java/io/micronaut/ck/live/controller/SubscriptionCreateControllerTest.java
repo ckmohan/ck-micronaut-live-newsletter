@@ -24,7 +24,7 @@ class SubscriptionCreateControllerTest {
     @Test
     void getSubscribeCreateRendersHtmlPage() {
         BlockingHttpClient client = httpClient.toBlocking();
-        HttpRequest<?> accept = HttpRequest.GET("/subscription/create").accept(MediaType.TEXT_HTML);
+        HttpRequest<?> accept = HttpRequest.GET("/subscriber/create").accept(MediaType.TEXT_HTML);
         HttpResponse<Object> httpResponse = client.exchange(accept);
 
         assertEquals(HttpStatus.OK, httpResponse.getStatus());

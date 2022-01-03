@@ -16,7 +16,7 @@ import javax.validation.constraints.NotNull;
 import java.util.Map;
 
 @Produces(MediaType.TEXT_HTML)
-@Controller("/subscription")
+@Controller("/subscriber")
 class SubscriptionSaveController {
     private final SubscriberSaveService subscriberSaveService;
 
