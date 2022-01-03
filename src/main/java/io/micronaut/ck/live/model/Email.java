@@ -19,23 +19,31 @@ public record Email(
         @Nullable List<@javax.validation.constraints.Email String> bcc,
         @NonNull @NotBlank String subject) {
 
-    public static Builder EmailBuilder() {
-        return new Builder();
-    }
-
     private Email(Builder builder) {
         this(builder.to, builder.from, builder.html, builder.text, builder.cc
                 , builder.bcc, builder.subject);
     }
+
+    public static Builder EmailBuilder() {
+        return new Builder();
+    }
+
     public static final class Builder {
 
-        private @NonNull @NotBlank @javax.validation.constraints.Email String to;
-        private @NonNull @NotBlank @javax.validation.constraints.Email String from;
-        private @Nullable String html;
-        private @Nullable String text;
-        private @Nullable List<@javax.validation.constraints.Email String> cc = new ArrayList<>();
-        private @Nullable List<@javax.validation.constraints.Email String> bcc = new ArrayList<>();
-        private @NonNull @NotBlank String subject;
+        private @NonNull
+        @NotBlank @javax.validation.constraints.Email String to;
+        private @NonNull
+        @NotBlank @javax.validation.constraints.Email String from;
+        private @Nullable
+        String html;
+        private @Nullable
+        String text;
+        private @Nullable
+        List<@javax.validation.constraints.Email String> cc = new ArrayList<>();
+        private @Nullable
+        List<@javax.validation.constraints.Email String> bcc = new ArrayList<>();
+        private @NonNull
+        @NotBlank String subject;
 
         private Builder() {
             // Use static EmailBuilder() method
@@ -62,7 +70,7 @@ public record Email(
         }
 
         public Builder cc(@Nullable String zcc) {
-            if (Objects.isNull(zcc)){
+            if (Objects.isNull(zcc)) {
                 return this;
             }
             this.cc.add(zcc);
@@ -70,7 +78,7 @@ public record Email(
         }
 
         public Builder bcc(@Nullable String zbcc) {
-            if (Objects.isNull(zbcc)){
+            if (Objects.isNull(zbcc)) {
                 return this;
             }
             this.bcc.add(zbcc);

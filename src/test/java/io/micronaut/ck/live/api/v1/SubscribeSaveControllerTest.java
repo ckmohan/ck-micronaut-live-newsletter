@@ -20,6 +20,7 @@ import org.junit.jupiter.api.Test;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Optional;
 
@@ -81,6 +82,11 @@ class SubscribeSaveControllerTest {
         public Optional<String> save(@NotNull @NonNull @Valid Subscriber subscriber) {
             invocations++;
             return Optional.empty();
+        }
+
+        @Override
+        public void saveActiveSubscribers(Collection<Subscriber> subscribers) {
+
         }
     }
 

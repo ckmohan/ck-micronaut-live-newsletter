@@ -34,7 +34,7 @@ public class SendGridEmailSender implements EmailSender {
     @Override
     public void sendEmail(@NonNull @NotBlank @Valid Email email) {
         try {
-            if(LOG.isTraceEnabled()) {
+            if (LOG.isTraceEnabled()) {
                 LOG.trace("Sending email to {}", email.to());
             }
             send(createRequest(createEmail(email)));

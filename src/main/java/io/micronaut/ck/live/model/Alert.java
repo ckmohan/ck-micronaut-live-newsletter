@@ -35,6 +35,10 @@ public class Alert {
 
     }
 
+    public static Builder builder() {
+        return new Builder();
+    }
+
     @Nullable
     public String getPrimary() {
         return primary;
@@ -105,10 +109,6 @@ public class Alert {
 
     public void setDark(@Nullable String dark) {
         this.dark = dark;
-    }
-
-    public static Builder builder() {
-        return new Builder();
     }
 
     public static class Builder {

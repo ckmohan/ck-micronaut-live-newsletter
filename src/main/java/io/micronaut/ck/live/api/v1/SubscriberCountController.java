@@ -32,7 +32,7 @@ class SubscriberCountController {
     )
     @ApiResponse(responseCode = "200",
             description = "subscriber confirmed",
-            content = @Content(mediaType = "text/plain", schema =@Schema(implementation = Integer.class))
+            content = @Content(mediaType = "text/plain", schema = @Schema(implementation = Integer.class))
     )
     @ExecuteOn(TaskExecutors.IO)
     @Get(SUBSCRIBER_PATH + "/count")

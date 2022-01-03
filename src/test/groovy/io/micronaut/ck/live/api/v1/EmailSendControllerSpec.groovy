@@ -71,6 +71,7 @@ class EmailSendControllerSpec extends Specification {
         Integer getConfirmedSubscribersCount() {
             2
         }
+
         @Override
         @NonNull
         List<Subscriber> findAll() {

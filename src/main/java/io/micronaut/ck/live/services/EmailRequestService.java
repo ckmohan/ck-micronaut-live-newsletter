@@ -8,7 +8,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-public  interface EmailRequestService {
+public interface EmailRequestService {
     void process(@NonNull @NotNull HttpRequest<?> httpRequest,
                  @NonNull @NotBlank @Valid EmailRequest emailRequest);
 }

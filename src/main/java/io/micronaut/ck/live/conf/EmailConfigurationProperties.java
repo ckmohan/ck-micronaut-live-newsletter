@@ -4,7 +4,7 @@ import io.micronaut.context.annotation.ConfigurationProperties;
 import io.micronaut.context.annotation.Requires;
 import io.micronaut.core.annotation.NonNull;
 
-@Requires(property = EmailConfigurationProperties.PREFIX+".from")
+@Requires(property = EmailConfigurationProperties.PREFIX + ".from")
 @ConfigurationProperties(EmailConfigurationProperties.PREFIX)
 public record EmailConfigurationProperties(@NonNull String from)
         implements EmailConfiguration {

@@ -37,9 +37,9 @@ class SubscriberCancelControllerTest {
         assertEquals(HttpStatus.OK, response.getStatus());
         assertTrue(response.getBody().isPresent());
         assertTrue(response.getBody().get().contains("""
-                            <div class="alert alert-danger" role="alert">
-                                    <span>Not Found</span>
-                                </div>"""));
+                <div class="alert alert-danger" role="alert">
+                        <span>Not Found</span>
+                    </div>"""));
     }
 
     @Test
@@ -50,9 +50,9 @@ class SubscriberCancelControllerTest {
         assertEquals(HttpStatus.OK, response.getStatus());
         assertTrue(response.getBody().isPresent());
         assertTrue(response.getBody().get().contains("""
-                            <div class="alert alert-danger" role="alert">
-                                    <span>Not Found</span>
-                                </div>"""));
+                <div class="alert alert-danger" role="alert">
+                        <span>Not Found</span>
+                    </div>"""));
 
     }
 

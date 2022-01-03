@@ -45,7 +45,7 @@ public class EmailRequestServiceImpl implements EmailRequestService {
     }
 
     private Optional<String> unsubscribeLink(@NonNull HttpRequest<?> httpRequest,
-                                            @NonNull Subscriber subscriber) {
+                                             @NonNull Subscriber subscriber) {
 
         return confirmationCodeGenerator.generate(subscriber.email()).map(token -> {
             String host = httpHostResolver.resolve(httpRequest);

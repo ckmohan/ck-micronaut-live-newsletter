@@ -5,9 +5,10 @@ import io.micronaut.core.annotation.NonNull;
 
 import java.util.List;
 
-public interface SubscriberService  {
+public interface SubscriberService {
     @NonNull
     Integer getConfirmedSubscribersCount();
+
     @NonNull
     List<Subscriber> findAll();
 }

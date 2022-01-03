@@ -1,6 +1,5 @@
 package io.micronaut.ck.live;
 
-import io.micronaut.ck.live.conf.EmailConfiguration;
 import io.micronaut.ck.live.data.SubscriberDataRepository;
 import io.micronaut.ck.live.model.Email;
 import io.micronaut.ck.live.services.EmailSender;
@@ -19,7 +18,6 @@ import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
-import spock.util.concurrent.PollingConditions;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -65,6 +63,7 @@ public class SubscriptionConfirmationTest {
     @Singleton
     static class EmailSenderCollector implements EmailSender {
         private final List<Email> emails = new ArrayList<>();
+
         @Override
         public void sendEmail(Email email) {
             emails.add(email);

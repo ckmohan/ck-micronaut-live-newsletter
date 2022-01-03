@@ -16,6 +16,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.util.Collection;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -51,6 +52,11 @@ class SubscriberSaveServiceTest {
         @Override
         public Optional<String> save(@NotNull @NonNull @Valid Subscriber subscriber) {
             return Optional.empty();
+        }
+
+        @Override
+        public void saveActiveSubscribers(Collection<Subscriber> subscribers) {
+
         }
     }
 }
