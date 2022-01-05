@@ -38,15 +38,15 @@ class SubscribeSaveController {
     )
     @ApiResponse(responseCode = "201",
             description = "subscriber created pending confirmation")
-    @ApiResponse(responseCode = "422",
-            description = "subscriber already exists")
     @RequestBody(content = @Content(schema = @Schema(implementation = Subscriber.class),
             mediaType = "application/json"))
     @ExecuteOn(TaskExecutors.IO)
     @Post(SUBSCRIBER_PATH)
-    @Status(HttpStatus.CREATED)
     @PermitAll
-    void saveSubscriber(@Body @NotNull @NonNull @Valid Subscriber subscriber) {
-        subscriberSaveService.save(subscriber);
+    HttpStatus saveSubscriber(@Body @NotNull @NonNull @Valid Subscriber subscriber) {
+        if (!subscriberSaveService.exists(subscriber.email())) {
+            subscriberSaveService.save(subscriber);
+        }
+        return HttpStatus.CREATED;
     }
 }

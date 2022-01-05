@@ -85,8 +85,13 @@ class SubscribeSaveControllerTest {
         }
 
         @Override
-        public void saveActiveSubscribers(Collection<Subscriber> subscribers) {
+        public void saveActiveSubscribers(@NonNull @NotNull Collection<Subscriber> subscribers) {
 
+        }
+
+        @Override
+        public boolean exists(@NonNull @NotNull String email) {
+            return true;
         }
     }
 

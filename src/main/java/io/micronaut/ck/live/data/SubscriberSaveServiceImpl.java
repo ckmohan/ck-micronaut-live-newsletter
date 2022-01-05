@@ -10,6 +10,7 @@ import io.micronaut.core.annotation.NonNull;
 import jakarta.inject.Singleton;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -35,7 +36,6 @@ public class SubscriberSaveServiceImpl implements SubscriberSaveService {
     public Optional<String> save(@NotNull @NonNull @Valid Subscriber subscriber) {
         return idGenerator.generate().map(id -> {
             SubscriberEntity entity = new SubscriberEntity(id, subscriber.email(), subscriber.name());
-            System.out.println(entity);
             subscriberDataRepository.save(entity);
             eventPublisher.publishEvent(new SubscriptionPendingEvent(subscriber.email()));
             return id;
@@ -45,6 +45,11 @@ public class SubscriberSaveServiceImpl implements SubscriberSaveService {
     @Override
     public void saveActiveSubscribers(@NonNull Collection<Subscriber> subscribers) {
         subscriberDataRepository.saveAll(cerateActiveSubscirberEntites(subscribers));
+    }
+
+    @Override
+    public boolean exists(@NonNull @NotNull @Email String email) {
+        return subscriberDataRepository.countByEmail(email) > 0;
     }
 
     private List<SubscriberEntity> cerateActiveSubscirberEntites(
