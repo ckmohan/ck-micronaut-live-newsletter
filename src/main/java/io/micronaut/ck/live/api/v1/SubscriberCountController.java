@@ -11,6 +11,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import jakarta.annotation.security.PermitAll;
 import jakarta.inject.Inject;
 
 import static io.micronaut.ck.live.api.v1.Api.SUBSCRIBER_PATH;
@@ -37,6 +38,7 @@ class SubscriberCountController {
     @ExecuteOn(TaskExecutors.IO)
     @Get(SUBSCRIBER_PATH + "/count")
     @Produces(MediaType.TEXT_PLAIN)
+    @PermitAll
     Integer subscriberCount() {
         return subscriberService.getConfirmedSubscribersCount();
     }

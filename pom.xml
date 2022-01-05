@@ -19,6 +19,7 @@
         <release.version>17</release.version>
         <micronaut.version>3.2.3</micronaut.version>
         <micronaut.data.version>3.2.1</micronaut.data.version>
+        <micronaut.security.version>3.2.0</micronaut.security.version>
         <exec.mainClass>io.micronaut.ck.live.Application</exec.mainClass>
         <micronaut.runtime>netty</micronaut.runtime>
     </properties>
@@ -79,11 +80,6 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>io.micronaut.security</groupId>
-            <artifactId>micronaut-security-jwt</artifactId>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
             <groupId>io.micronaut.views</groupId>
             <artifactId>micronaut-views-thymeleaf</artifactId>
             <scope>compile</scope>
@@ -91,6 +87,16 @@
         <dependency>
             <groupId>io.micronaut.flyway</groupId>
             <artifactId>micronaut-flyway</artifactId>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.micronaut.security</groupId>
+            <artifactId>micronaut-security-oauth2</artifactId>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.micronaut.security</groupId>
+            <artifactId>micronaut-security-jwt</artifactId>
             <scope>compile</scope>
         </dependency>
 
@@ -233,6 +239,11 @@
                             <groupId>io.micronaut</groupId>
                             <artifactId>micronaut-http-validation</artifactId>
                             <version>${micronaut.version}</version>
+                        </path>
+                        <path>
+                            <groupId>io.micronaut.security</groupId>
+                            <artifactId>micronaut-security-annotations</artifactId>
+                            <version>${micronaut.security.version}</version>
                         </path>
                         <path>
                             <groupId>io.micronaut.openapi</groupId>

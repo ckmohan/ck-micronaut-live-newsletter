@@ -13,6 +13,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import jakarta.annotation.security.PermitAll;
 import jakarta.inject.Inject;
 
 import javax.validation.Valid;
@@ -43,6 +44,7 @@ public class SubscriberConfirmationController {
 
     @ExecuteOn(TaskExecutors.IO)
     @Patch(SUBSCRIBER_PATH + "/confirm")
+    @PermitAll
     HttpStatus confirm(@Body @NonNull @NotNull @Valid SubscriberConfirmationRequest subscriberConfirmationRequest) {
         return confirmationCodeVerifier.verify(subscriberConfirmationRequest.token()).isPresent() ? HttpStatus.OK : HttpStatus.UNPROCESSABLE_ENTITY;
     }

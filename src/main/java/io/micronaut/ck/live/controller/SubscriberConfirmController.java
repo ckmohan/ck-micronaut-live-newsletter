@@ -21,6 +21,7 @@ import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import jakarta.annotation.security.PermitAll;
 import org.thymeleaf.util.StringUtils;
 
 import java.net.URI;
@@ -63,6 +64,7 @@ class SubscriberConfirmController {
     @ExecuteOn(TaskExecutors.IO)
     @View("alert")
     @Get("/confirm")
+    @PermitAll
     AlertPage confirm(@QueryValue @Nullable String token) {
 
         if (StringUtils.isEmpty(token)) {

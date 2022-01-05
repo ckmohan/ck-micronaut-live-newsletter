@@ -9,6 +9,8 @@ import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Post;
 import io.micronaut.http.annotation.Status;
 import io.micronaut.scheduling.annotation.Async;
+import io.micronaut.security.annotation.Secured;
+import io.micronaut.security.rules.SecurityRule;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -39,6 +41,7 @@ public class EmailSendController {
             mediaType = "application/json"))
     @Status(HttpStatus.ACCEPTED)
     @Post("/email")
+    @Secured(SecurityRule.IS_AUTHENTICATED)
     void send(@NonNull @NotNull HttpRequest<?> httpRequest, @Body @NotNull @NonNull @Valid EmailRequest emailRequest) {
         processEmailRequest(httpRequest, emailRequest);
     }

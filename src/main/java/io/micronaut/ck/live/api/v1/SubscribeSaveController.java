@@ -10,11 +10,14 @@ import io.micronaut.http.annotation.Post;
 import io.micronaut.http.annotation.Status;
 import io.micronaut.scheduling.TaskExecutors;
 import io.micronaut.scheduling.annotation.ExecuteOn;
+import io.micronaut.security.annotation.Secured;
+import io.micronaut.security.rules.SecurityRule;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import jakarta.annotation.security.PermitAll;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -44,6 +47,7 @@ class SubscribeSaveController {
     @ExecuteOn(TaskExecutors.IO)
     @Post(SUBSCRIBER_PATH)
     @Status(HttpStatus.CREATED)
+    @PermitAll
     void saveSubscriber(@Body @NotNull @NonNull @Valid Subscriber subscriber) {
         subscriberSaveService.save(subscriber);
     }

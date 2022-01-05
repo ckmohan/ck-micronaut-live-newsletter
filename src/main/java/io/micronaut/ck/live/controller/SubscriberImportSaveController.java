@@ -11,6 +11,8 @@ import io.micronaut.http.annotation.Post;
 import io.micronaut.http.annotation.Produces;
 import io.micronaut.http.multipart.CompletedFileUpload;
 import io.micronaut.scheduling.annotation.Async;
+import io.micronaut.security.annotation.Secured;
+import io.micronaut.security.rules.SecurityRule;
 import io.micronaut.views.View;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -44,6 +46,7 @@ class SubscriberImportSaveController {
                     mediaType = "text/html")
     )
 
+    @Secured(SecurityRule.IS_AUTHENTICATED)
     @Produces(MediaType.TEXT_HTML)
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @View("alert")

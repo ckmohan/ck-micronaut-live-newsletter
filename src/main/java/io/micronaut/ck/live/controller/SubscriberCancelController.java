@@ -19,6 +19,7 @@ import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import jakarta.annotation.security.PermitAll;
 import org.thymeleaf.util.StringUtils;
 
 import java.net.URI;
@@ -58,6 +59,7 @@ class SubscriberCancelController {
     @Produces(MediaType.TEXT_HTML)
     @View("unsubscribed")
     @Get("/cancel")
+    @PermitAll
     HttpResponse<?> unsubscribe(@QueryValue @Nullable String token) {
         if (StringUtils.isEmpty(token)) {
             return notFound();
