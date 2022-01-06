@@ -2,9 +2,11 @@ package io.micronaut.ck.live.data;
 
 import io.micronaut.ck.live.Subscriber;
 import io.micronaut.ck.live.model.SubscriptionStatus;
+import io.micronaut.ck.live.views.SubscriberRow;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.data.annotation.Query;
 import io.micronaut.data.jdbc.annotation.JdbcRepository;
+import io.micronaut.data.model.Pageable;
 import io.micronaut.data.model.query.builder.sql.Dialect;
 import io.micronaut.data.repository.CrudRepository;
 
@@ -25,4 +27,7 @@ public interface SubscriberDataRepository extends CrudRepository<SubscriberEntit
     List<Subscriber> findByStatus(@NonNull @NotNull SubscriptionStatus subscriptionStatus);
 
     long countByEmail(@NonNull @NotNull @Email String email);
+
+    @NonNull
+    List<SubscriberRow> find(Pageable pageable);
 }

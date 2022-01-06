@@ -45,3 +45,6 @@ flyway:
   datasources:
     default:
       enabled: true
+
+newsletter:
+  subscriber-list-page-size: 10
